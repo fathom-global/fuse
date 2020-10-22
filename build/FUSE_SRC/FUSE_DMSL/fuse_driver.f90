@@ -290,10 +290,6 @@ CALL ASSIGN_STT()        ! state definitions are stored in module model_defn
 CALL ASSIGN_FLX()        ! flux definitions are stored in module model_defn
 CALL ASSIGN_PAR()        ! parameter definitions are stored in module multiparam
 
-! Compute derived model parameters (bucket sizes, etc.)
-! CALL PAR_DERIVE(ERR,MESSAGE) <- now done by RUN_FUSE
-! IF (ERR.NE.0) WRITE(*,*) TRIM(MESSAGE); IF (ERR.GT.0) STOP
-
 ! Define output and parameter files: TODO: evaluate if this is still needed
 ONEMOD=1       ! one file per model (i.e., model dimension = 1)
 PCOUNT=0       ! counter for parameter sets evaluated (shared in MODULE multistats)
@@ -301,13 +297,13 @@ PCOUNT=0       ! counter for parameter sets evaluated (shared in MODULE multista
 IF(fuse_mode == 'run_def')THEN ! run FUSE with default parameter values
 
   ! files to which model run and parameter set will be saved
-#ifdef __MPI__
-  write(FNAME_NETCDF_RUNS, "(A,I0.5,A)") TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_runs_def_', mpi_process, ".nc"
-  write(FNAME_NETCDF_PARA, "(A,I0.5,A)") TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_para_def_', mpi_process, ".nc"
-#else
-  FNAME_NETCDF_RUNS = TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_runs_def.nc'
-  FNAME_NETCDF_PARA = TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_para_def.nc'
-#endif
+  #ifdef __MPI__
+    write(FNAME_NETCDF_RUNS, "(A,I0.5,A)") TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_runs_def_', mpi_process, ".nc"
+    write(FNAME_NETCDF_PARA, "(A,I0.5,A)") TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_para_def_', mpi_process, ".nc"
+  #else
+    FNAME_NETCDF_RUNS = TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_runs_def.nc'
+    FNAME_NETCDF_PARA = TRIM(OUTPUT_PATH)//TRIM(dom_id)//'_'//TRIM(FMODEL_ID)//'_para_def.nc'
+  #endif
 
   NUMPSET=1  ! only the default parameter set is run
   ALLOCATE(name_psets(NUMPSET))
