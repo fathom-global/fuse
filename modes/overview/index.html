@@ -66,8 +66,6 @@
     <ul class="current">
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../structure/">Modelling decisions</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../structure/">Model structure</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../execution_modes/">Parameter estimation modes</a>
@@ -143,12 +141,15 @@
               
                 <h2 id="overview">Overview</h2>
 <p>Running a hydrological model means making a wide range of decisions, which will influence the simulations in different ways and to different extents. Our goal with FUSE is enable users to be in charge of these decisions, so that they can understand their effects, and thereby, develop and use better models. The modelling decisions FUSE enables can be split in four main groups:</p>
-<p><strong>Model structure</strong> FUSE is a master template for model generation. It enables users to create and run their own model structure(s) by combining pre-existing modules (described in the <a href="/modules/1_precip">module section</a>).</p>
-<p><strong>Parameter estimation</strong> The parameters of any FUSE model structure can be estimated in different ways. One can for instance decide to use default parameter values or to run a calibration - the different options are described in the <a href="/modes/execution_modes">Parameter estimation section</a>.</p>
-<p><strong>Spatial configuration</strong> Any FUSE model structure can be run either for individual catchment or using a grid - see the <a href="/modes/spatial_modes">Spatial modes section</a>.</p>
+<p><strong>Model structure</strong> FUSE is a master template for model generation. It enables users to create and run their own model structures by combining pre-existing modules - see the <a href="/modes/structure">Model structure section</a>.</p>
+<p><strong>Parameter estimation</strong> The parameters of any FUSE structure can be estimated in different ways. One can for instance decide to use default parameter values or to run a calibration algorithm - the different options are described in the <a href="/modes/execution_modes">Parameter estimation section</a>.</p>
+<p><strong>Spatial configuration</strong> Any FUSE model structure can be run either for individual catchments or on a grid - see the <a href="/modes/spatial_modes">Spatial modes section</a>.</p>
 <p><strong>Numerical scheme</strong> The equation underpinning any FUSE model structure can be solved using a range of numerical methods - see the <a href="/modes/numerical_methods">Numerical methods section</a>.</p>
 <h2 id="fuse-execution">FUSE execution</h2>
-<p>To execute FUSE, provide the 3-4 following arguments (see example below):</p>
+<p>Depending on the execution mode, FUSE requires 3-4 arguments to run:</p>
+<pre><code>./fuse.exe file_manager.txt region_id parameter_mode paramter_file
+</code></pre>
+
 <ol>
 <li>FUSE file manager, which sets the FUSE file system (see <a href="/files/file_manager">here</a>),</li>
 <li>region ID, which will be use to load the forcing and to name the output files,</li>
@@ -165,7 +166,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../structure/" class="btn btn-neutral float-right" title="Modelling decisions">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../structure/" class="btn btn-neutral float-right" title="Model structure">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../../install/test_cases/" class="btn btn-neutral" title="Test cases"><span class="icon icon-circle-arrow-left"></span> Previous</a>
