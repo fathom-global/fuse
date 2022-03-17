@@ -23,8 +23,8 @@ EXE_PATH = $(F_MASTER)bin/
 #========================================================================
 
 # Define the fortran compiler. You have a few options: i) set the FC
-# variable is set in your environment, ii) set it when you compile this
-# Make file (make FC=gfortran), iii) or if don't define it, the compiler
+# variable in your environment, ii) set it when you compile this
+# Makefile (e.g. make FC=gfortran), iii) or if don't define it, the compiler
 # defined below is used
 ifndef FC
 
