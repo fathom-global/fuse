@@ -11,7 +11,7 @@
 
 ## About <a name = "about"></a>
 
-This repo contains the Fortran code for the **Framework for Understanding Structural Errors** or **FUSE**. FUSE is modular modelling framework which enables the generation of a myriad of conceptual hydrological models by recombining elements from commonly-used models. FUSE is a community model and is published under a GPLv3 license.
+This repo contains the Fortran code for the **Framework for Understanding Structural Errors** or **FUSE**. FUSE is modular modelling framework which enables the generation of a myriad of conceptual hydrological models by recombining elements from commonly-used models. FUSE is a community model and is published under a **GPLv3 license**.
 
 ### FUSE motivation
 
