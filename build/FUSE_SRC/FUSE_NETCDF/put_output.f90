@@ -98,7 +98,7 @@ SUBROUTINE PUT_GOUTPUT_3D(istart_sim,istart_in,numtim,IPSET)
   USE multistate, only: ncid_out                        ! NetCDF output file ID
   USE multiforce, ONLY: nspat1,nspat2,startSpat2        ! spatial dimensions
   USE multiforce, ONLY: gForce_3d                       ! test only
-  USE multiforce, only: NUMTIM                          ! number of data steps
+ ! USE multiforce, only: NUMTIM                          ! number of data steps - numtime  defined below
   USE multiforce, only: GRID_FLAG                       ! .true. if distributed
 
   IMPLICIT NONE
