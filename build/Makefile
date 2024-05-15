@@ -35,8 +35,9 @@ endif
 
 # Define the NetCDF and HDF5 libraries. Use the libraries associated with
 # the compiler you selected above. Note that these paths are machine-dependent
-# - consider asking the person in charge of your machine where the libraries are
-# installed. The folders should contain a lib directory - see LIBRARIES below.
+# consider asking the person in charge of your machine where the libraries are
+# installed or use nf-config --all
+
 ifeq "$(FC)" "ifort"
 
 	NCDF_PATH = ${ISCA_NCDF_PATH_ifort}
@@ -44,15 +45,21 @@ ifeq "$(FC)" "ifort"
 
 endif
 
-ifeq "$(FC)" "gfortran"
+ifeq "$(FC)" "gfortran"	
 
-	NCDF_PATH = ${ISCA_NCDF_PATH_gfort}
-	HDF_PATH  = ${ISCA_HDF_PATH_gfort}
+	# NCDF_PATH = ${NCDF_PATH_gfortran}
+	# HDF_PATH = ${HDF_PATH_gfortran}
+	# INCLUDE_PATH = ${INC_PATH}
+
+	NCDF_PATH = /usr/lib/x86_64-linux-gnu 
+	HDF_PATH = /usr/lib/x86_64-linux-gnu/hdf5/serial 
+    INCLUDE_PATH = /usr
 
 endif
 
-LIBRARIES = -L$(NCDF_PATH)/lib -lnetcdff -lnetcdf -L$(HDF_PATH)/lib -lhdf5_hl -lhdf5
-INCLUDE = -I$(NCDF_PATH)/include -I$(HDF_PATH)/include
+#LIBRARIES = -L$(NCDF_PATH)/lib -lnetcdff -lnetcdf -L$(HDF_PATH)/lib -lhdf5_hl -lhdf5
+LIBRARIES = -L${NCDF_PATH} -lnetcdff -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -Wl,-z,now -lnetcdf -lnetcdf -lm -L${HDF_PATH} -lhdf5_hl -lhdf5
+INCLUDE = -I$(INCLUDE_PATH)/include -I$(INCLUDE_PATH)/include
 
 # Define the driver program and associated subroutines for the fidelity test
 FUSE_DRIVER = \
@@ -236,20 +243,21 @@ ifeq "$(FC)" "ifort"
 
 endif
 
+# see https://forum.mmm.ucar.edu/threads/how-to-fix-rank-mismatch-between-actual-argument-at-1-and-actual-argument-at-2-scalar-and-rank-1.14995/
+
 ifeq "$(FC)" "gfortran"
 
- FLAGS_NORMA = -O3 -ffree-line-length-none -fmax-errors=0 -cpp
- FLAGS_DEBUG = -p -g -Wall -ffree-line-length-none -fmax-errors=0 -fbacktrace -fcheck=bounds -cpp
- FLAGS_DEBUG = -p -Og -ffree-line-length-none -fmax-errors=0 -fcheck=bounds -cpp # without -warn all
- FLAGS_FIXED = -O2 -c -ffixed-form
+ FLAGS_NORMA = -O3 -ffree-line-length-none -fmax-errors=0 -cpp -fallow-argument-mismatch -fallow-invalid-boz -m64
+ FLAGS_DEBUG = -p -Og -ffree-line-length-none -fmax-errors=0 -fcheck=bounds -cpp -fallow-argument-mismatch -fallow-invalid-boz -m64 
+ FLAGS_FIXED = -O2 -c -ffixed-form -fallow-argument-mismatch -fallow-invalid-boz -m64
 
 endif
 
 # select a set of flags
-# FLAGS = $(FLAGS_NORMA)
 FLAGS = $(FLAGS_DEBUG)
 
 # MPI: FUSE with MPI has been compiled successfully with mpif90 and mpiifort.
+# Ubuntu package: sudo apt install mpich
 # Note: override must be specifed to enable FC passed as argument to be overridden
 # https://www.gnu.org/software/make/manual/html_node/Override-Directive.html#Override-Directive
 
